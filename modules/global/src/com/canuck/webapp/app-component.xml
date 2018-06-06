@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<app-component xmlns="http://schemas.haulmont.com/cuba/app-component.xsd"
+               dependsOn="com.haulmont.cuba">
+    <module blocks="*"
+            name="global">
+        <artifact appJar="true"
+                  name="canuck-global"/>
+        <property name="cuba.persistenceConfig"
+                  value="+com/canuck/webapp/persistence.xml"/>
+        <property name="cuba.metadataConfig"
+                  value="+com/canuck/webapp/metadata.xml"/>
+        <property name="cuba.viewsConfig"
+                  value="+com/canuck/webapp/views.xml"/>
+    </module>
+    <module blocks="core"
+            dependsOn="global"
+            name="core">
+        <artifact appJar="true"
+                  name="canuck-core"/>
+        <property name="cuba.springContextConfig"
+                  value="+com/canuck/webapp/spring.xml"/>
+        <property name="cuba.mainMessagePack"
+                  value="+com.canuck.webapp.core"/>
+        <artifact classifier="db"
+                  configuration="dbscripts"
+                  ext="zip"
+                  name="canuck-core"/>
+    </module>
+    <module blocks="web"
+            dependsOn="global"
+            name="web">
+        <artifact appJar="true"
+                  name="canuck-web"/>
+        <artifact classifier="web"
+                  configuration="webcontent"
+                  ext="zip"
+                  name="canuck-web"/>
+        <property name="cuba.springContextConfig"
+                  value="+com/canuck/webapp/web-spring.xml"/>
+        <property name="cuba.dispatcherSpringContextConfig"
+                  value="+com/canuck/webapp/web-dispatcher-spring.xml"/>
+        <property name="cuba.windowConfig"
+                  value="+com/canuck/webapp/web-screens.xml"/>
+        <property name="cuba.menuConfig"
+                  value="+com/canuck/webapp/web-menu.xml"/>
+        <property name="cuba.permissionConfig"
+                  value="+com/canuck/webapp/web-permissions.xml"/>
+        <property name="cuba.mainMessagePack"
+                  value="+com.canuck.webapp.web"/>
+    </module>
+</app-component>

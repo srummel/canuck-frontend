@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="com.canuck.webapp.web.email.EmailBrowse"
+        focusComponent="emailsTable"
+        lookupComponent="emailsTable"
+        messagesPack="com.canuck.webapp.web.email">
+    <dsContext>
+        <groupDatasource id="emailsDs"
+                         class="com.canuck.webapp.entity.Email"
+                         view="_base">
+            <query>
+                <![CDATA[select e from canuckwebapp$Email e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="emailsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="emailsTable"
+                datasource="emailsDs">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="emailsTable"
+                    width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+                <action id="excel"/>
+            </actions>
+            <columns>
+                <column id="dateReceived"/>
+                <column id="sentBy"/>
+                <column id="otherRecipients"/>
+                <column id="content"/>
+            </columns>
+            <rows datasource="emailsDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="emailsTable.create"/>
+                <button id="editBtn"
+                        action="emailsTable.edit"/>
+                <button id="removeBtn"
+                        action="emailsTable.remove"/>
+                <button id="excelBtn"
+                        action="emailsTable.excel"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>
